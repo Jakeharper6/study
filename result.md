@@ -1,4 +1,4 @@
-# test1
+test1
 
 ~~~Jake@DESKTOP-3SHLOGR ~/study/practice
 Jake@DESKTOP-3SHLOGR ~/study/practice
@@ -28,7 +28,7 @@ $ find ./test -name '*.txt'
 
 # test2
 
-*出错：只能删除test2目录下的.doc
+* 第一次出错：只能删除test2目录下的.doc
 
 ~~~Jake@DESKTOP-3SHLOGR ~/study/practice
 $ find ./ -path '*/test/test1/*.doc' -o -path '*/test/test2/*.doc'
@@ -57,3 +57,14 @@ $ find ./ -path '*/test/test1/*.doc' -o -path '*/test/test2/*.doc'
 ./test/test1/test3.doc
 ./test/test1/test4.doc
 ~~~
+
+* 第二次
+
+~~~Jake@DESKTOP-3SHLOGR ~/practice
+$ find ./ -path "*/test/test1/*.doc" -o -path "*/test/test2/*.doc" | xargs rm
+~~~
+
+~~~Jake@DESKTOP-3SHLOGR ~/practice
+$ find ./ -path "*/test/test1/*.doc" -o -path "*/test/test2/*.doc"
+~~~
+
