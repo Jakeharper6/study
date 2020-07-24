@@ -1,7 +1,8 @@
 # test1
 
 ~~~Jake@DESKTOP-3SHLOGR ~/study/practice
-$ find . -name '*.txt' -type f -print -exec rm -rf {} \;
+Jake@DESKTOP-3SHLOGR ~/study/practice
+$ find ./test -name '*.txt' -type f -print -exec rm -rf {} \;
 ./test/test1/test1.txt
 ./test/test1/test2.txt
 ./test/test1/test3.txt
@@ -18,11 +19,11 @@ $ find . -name '*.txt' -type f -print -exec rm -rf {} \;
 ./test/test4/test2.txt
 ./test/test4/test3.txt
 ./test/test4/test4.txt
-./test123.txt
 ~~~
 
 ~~~Jake@DESKTOP-3SHLOGR ~/study/practice
-$ find . -name '*.txt'
+Jake@DESKTOP-3SHLOGR ~/study/practice
+$ find ./test -name '*.txt'
 ~~~
 
 # test2
