@@ -14,14 +14,14 @@ int main(void){
     printf("第二个数：");
     scanf("%d",&b);
 
-    dis = (a > b) ? a - b : b - a;
+    dis = a - b;
 
-    if (dis <= 10)
-    {
-        printf("它们的差小于等于10");
-    }else
+    if (dis < -10 || dis > 10)
     {
         printf("它们的差大于等于11");
+    }else
+    {
+        printf("它们的差小于等于10");
     }
     
     return 0;
