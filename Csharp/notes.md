@@ -54,3 +54,39 @@
 7. String**.Replace**("a", "b"),用b替换a
 8. myString = "content" + myString + "content";可直接在字符串前后增加内容
 9. < string >.Split('...')识别string里的'...'并去除后分割string成string数组
+
+## 6
+
+1. static double Multiply (double a, double b) **=>** a * b;	表达式体方法,函数模式使用**=>**（Lambda箭头）来实现这一功能。
+
+2. static < type > SumVals ( **params**  < type >[]  vals ){}    
+
+   用关键字**params**定义函数sumVals()，该函数可以接受任意 个type型参数（但不接受其他类型的参数）
+
+3. static void ShowDouble(**ref** int val){}
+
+   用关键字**ref**定义函数ShowDouble()，可以使main函数的实参输入ShowDouble函数后改变
+
+   **把未赋值的变量用作ref参数是非法的**
+
+4. static int MaxValue(int[] intArray, **out** int maxIndex)
+
+   在函数使用out参数时，必须把它看成尚未赋值，已赋值的变量的值也会在函数执行时丢失。
+
+5. 必须使用static或const关键字来定义全局变量
+
+6. string**.Substring(a, b)** ;   检索a位置到b位置的字符串
+
+7. string**.IndexOf("ex")**； 查找“ex”在string中的索引值（位置）
+
+8. + 定义委托
+
+   **delegate** double ParocessDelegate(double param1,double param2);
+
+   + 声明委托类型的变量
+
+   ProcessDelegate process;
+
+   + 初始化委托变量
+
+   process = new ProcessDelegate( < 函数名 > );
