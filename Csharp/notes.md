@@ -1,6 +1,8 @@
 # C#入门经典
 
-## 3
+### OOP语言
+
+#### 第3章
 
 1. **W**rite**L**ine等语法大小写
 
@@ -10,12 +12,17 @@
 
 3. 用于在程序结束前 等待用户输入内容： Console**.ReadKey()**;
 
-## 4
+   
+
+#### 第4章
 
 1. bool < name >  = < ... >; 	bool -> ture/false
+
 2. WriteLine(**$**"...{name}...");      {name} -> 变量名称
 
-## 5
+   
+
+#### 第5章
 
 1. 初始化数组：
 
@@ -52,8 +59,12 @@
    String**.PadRight**同理
 
 7. String**.Replace**("a", "b"),用b替换a
+
 8. myString = "content" + myString + "content";可直接在字符串前后增加内容
+
 9. < string >.Split('...')识别string里的'...'并去除后分割string成string数组
+
+   
 
 ## 6
 
@@ -62,6 +73,8 @@
 2. static < type > SumVals ( **params**  < type >[]  vals ){}    
 
    用关键字**params**定义函数sumVals()，该函数可以接受任意 个type型参数（但不接受其他类型的参数）
+
+   详见p238
 
 3. static void ShowDouble(**ref** int val){}
 
@@ -75,18 +88,24 @@
 
 5. 必须使用static或const关键字来定义全局变量
 
-6. string**.Substring(a, b)** ;   检索a位置到b位置的字符串
+6. string**.Substring(a, b)** ;   检索从a位置开始**b个长度**的字符串
+
+   参数一 (a)：起始位置
+
+   参数二 (b)：指定长度
 
 7. string**.IndexOf("ex")**； 查找“ex”在string中的索引值（位置）
 
-8. + 定义委托
+8. 委托是类似于指向函数的指针
 
-   **delegate** double ParocessDelegate(double param1,double param2);
+   + 1.定义委托
 
-   + 声明委托类型的变量
+     **delegate** double ParocessDelegate(double param1,double param2);
 
-   ProcessDelegate process;
+   + 2.声明委托类型的变量
 
-   + 初始化委托变量
+     ProcessDelegate process;
 
-   process = new ProcessDelegate( < 函数名 > );
+   + 3.初始化委托变量
+
+     process = new ProcessDelegate( < 函数名 > );

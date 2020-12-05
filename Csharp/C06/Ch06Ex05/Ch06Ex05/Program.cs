@@ -21,7 +21,7 @@ namespace Ch06Ex05
             string input = ReadLine();
             int commaPos = input.IndexOf(',');
             double param1 = ToDouble(input.Substring(0, commaPos));
-            double param2 = ToDouble(input.Substring(commaPos + 1, input.Length - commaPos - 1));//为什么不是.Length - 1
+            double param2 = ToDouble(input.Substring(commaPos + 1, input.Length - commaPos - 1));
             WriteLine("Enter M to multiply or D to divide:");
             input = ReadLine();
             if (input == "M")
