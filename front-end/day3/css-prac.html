@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h2:first-child{
+            color: royalblue;
+        }
+
+        .lastp:last-child{
+            color: rgb(250, 64, 172);
+        }
+        
+        p:nth-child(3){
+            color: seagreen;
+        }
+
+        p:first-of-type{
+            color: slateblue;
+        }
+
+        span:last-of-type{
+            font-size: 50px;
+        }
+
+        p:nth-of-type(3){
+            color: tomato;
+            font-size: 30px;
+        }
+
+        a:link{
+            font-size: 40px;
+            background-color: blue;
+            color: white;
+        }
+
+        a:visited{
+            color: rgb(117, 117, 117);
+        }
+
+        a:hover{
+            font-size: 60px;
+        }
+
+        a:active{
+            font-size: 50px;
+        }
+
+        .p1::first-letter{
+            color: orange;
+        }
+
+        .p2::first-line{
+            background-color: orangered;
+        }
+
+        .p2::selection{
+            background-color: greenyellow;
+        }
+
+        .div{
+            background-color: indigo;
+        }
+
+        .div *::before{
+            content: "";
+            display: block;
+            width: 10px;
+            height: 10px;
+            background-color: black;
+        }
+
+        .div *::after{
+            content: "";
+            display: block;
+            width: 10px;
+            height: 10px;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="box">
+        <h2>h2</h2>
+        <p>1</p>
+        <p>2</p>
+        <p>3</p>
+        <span>6</span>
+        <br>
+        <span>7</span>
+        <p>4</p>
+        <p class="lastp">5</p>  
+    </div>
+
+    <a href="#1">Inferno</a>
+    <br>
+    <a href="#2">mirrage</a>
+
+    <p class="p1">是的风控合规</p>
+    <p class="p2">打开坚固的防守</p>
+
+    <div class="div">
+        <p>ppp</p>
+        <h2>h2h2h2</h2>
+        <span>span</span>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        .box {
+            width: 800px;
+            height: 300px;
+            background-image: url('https://pics2.baidu.com/feed/0ff41bd5ad6eddc45a00e79a8b5b02fa53663377.jpeg?token=37773fdc3250d76a32ca4419e7e6246e');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .box2 {
+            width: 80px;
+            height: 80px;
+            /* background-image: url('./images/jlt2.jpeg'); */
+            background-image: url('./images/jlt.jpg');
+            background-position: -32px -240px;
+        }
+
+        div:nth-child(4) {
+            background-image: url('./images/bz1.jpeg');
+        }
+        div:nth-child(7) {
+            background-image: url('./images/bz2.jpeg');
+        }
+
+        div:nth-of-type(2) {
+            border: solid 2px red;
+        }
+
+        .container {
+            height: 400px;
+            background: #00FF00 url('./images/bz3.jpeg') no-repeat top; 
+        }
+
+        /* p {
+            text-indent: 2em;
+            text-align: right;
+            word-spacing: 30px;
+            letter-spacing: 40px;
+            line-height: 100px;
+        } */
+
+        .pp {
+            text-transform: capitalize;
+            text-decoration: line-through;
+        }
+
+        .p1 {
+            font-size: 40px;
+            font-family: STFangsong;
+            font-weight: bold;
+            outline-color: red;
+            outline-width: 10px;
+            outline-style: solid;
+        }
+    </style>
+</head>
+<body>
+
+    <p class="p1">上岛咖啡 号开 始来速</p>
+
+    <p class="pp">hello world</p>
+
+    <div>
+        <div class="box"></div>
+        <div class="box2"></div>
+        <div style="height: 200px"></div>
+        <div class="box">12345</div>
+        <div style="height: 200px"></div>
+        <div style="height: 200px"></div>
+        <div class="box"></div>
+        <div style="height: 200px"></div>
+        <div style="height: 200px"></div>
+    </div>
+
+    <div class="container"></div>
+    
+</body>
+</html>

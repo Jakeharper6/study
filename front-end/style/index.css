@@ -1,0 +1,29 @@
+/* *{
+    font-size: 50px;
+}
+*/
+
+input{
+    width: 150px;
+    height: 150px;
+    background-color: rgb(154, 110, 255);
+}
+
+#tar{
+    background-color: rgb(112, 112, 112);
+    height: 200px;
+    width: 100px;
+}
+
+.tar2{
+    background-color: coral;
+}
+
+.fontex{
+    font-size: 100px;
+}
+
+.cb{
+    font-size: 40px;
+    line-height: px;
+}

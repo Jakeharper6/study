@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        div{
+            position: fixed;
+        }
+
+        .div1{
+            background-color: plum;
+            width: 300px;
+            height: 300px;
+            left: 100px;
+        }
+
+        .div2{
+            background-color: powderblue;
+            width: 300px;
+            height: 300px;
+            left: 200px;
+            z-index: 1;
+        }
+
+        .div3{
+            background-color: sandybrown;
+            width: 300px;
+            height: 300px;
+            left: 300px;
+        }
+
+        .div4{
+            background-color: slateblue;
+            width: 80px;
+            height: 80px;
+            transform: translate(80px, 80px);
+            top: 150px;
+            left: 250px;
+            z-index: 2;
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        .div4:hover{
+            transform: translate(80px, 80px) rotate(180deg);
+            transition-property: all;
+            transition-duration: 2s;
+            transition-timing-function: ease;
+            transition-delay: 0s;
+        }
+
+        p{
+            text-align: center;
+            line-height: 80px;
+            color: white;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="div1"></div>
+    <div class="div2"></div>
+    <div class="div3"></div>
+    <div class="div4">
+        <p>push</p>
+    </div>
+</body>
+</html>

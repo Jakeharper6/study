@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+        }
+
+        .box {
+            width: 500px;
+            height: 300px;
+            background-color: orange;
+        }
+
+        .box2 {
+            width: 500px;
+            height: 300px;
+            background-color: green;
+            position: relative;
+        }
+
+        .box3 {
+            height: 40px;
+            width: 40px;
+            background-color: red;
+            position: absolute;
+            bottom: 280px;
+            left: 480px;
+            border-radius: 50%;
+        }
+
+        img {
+            width: 150px;
+        }
+
+        .img2 {
+            position: relative;
+            top: 14px;
+        }
+
+        .img3 {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-top: -75px;
+            margin-left: -75px;
+        }
+
+        button{
+            width: 100px;
+            height: 100px;
+            position: fixed;
+            right: 200px;
+            bottom: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+
+    <div class="box2">
+        <img class="img3" src="../image/2e2c3a66468585.5b171eaad9d38.png" alt="">
+        <div class="box3"></div>
+    </div>
+
+    <img class="img2" src="../image/5d917e67531227.5b3cec90b9422.jpg" alt="">
+    <img src="../image/5ecd5987209567.5db0c6d002eb2.jpg" alt="">
+    <img src="../image/be04b489245357.5def05908edee.jpg" alt="">
+
+    <button>返回顶部</button>
+</body>
+
+</html>

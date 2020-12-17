@@ -1,0 +1,21 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.container{
+    width: 1240px;
+    margin: 30px auto;
+}
+
+.div{
+    width: 92px;
+    height: 127px;
+    background-color: #d7d7d7;
+    border-left: #f00 2px solid;
+}
+
+.div2{
+    width: 17px;
+    height: 127px;
+}
