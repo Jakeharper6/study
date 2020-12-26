@@ -5,8 +5,7 @@ import java.util.Random;
 public class random {
     public static void main(String[] args) {
         Random rand = new Random();
-        int x = 101;
-        int number = rand.nextInt(x) + 1;
+        int number = rand.nextInt(100) + 1;
         System.out.println(number);
 
         if (number >= 1 && number <= 5){
@@ -21,7 +20,7 @@ public class random {
             System.out.println("末吉");
         }else if (number > 80 && number <= 95 ){
             System.out.println("凶");
-        }else if (number > 95 && number <= 100 ){
+        }else {
             System.out.println("大凶");
         }
     }

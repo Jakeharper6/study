@@ -17,7 +17,8 @@ public class game {
         int input;
         do {
             input = scanner.nextInt();
-            System.out.println("请输入1-3的数！");
+            if (input < 1 || input > 3)
+                System.out.println("请输入1-3的数！");
         }while (input < 1 || input > 3);
 
         int comp = rand.nextInt(3) + 1;
@@ -60,7 +61,7 @@ public class game {
             }else {
                 System.out.println("你输了");
             }
-        }else if (input == 3){
+        }else {
             if (comp == 1){
                 System.out.println("你赢了");
             }else {
