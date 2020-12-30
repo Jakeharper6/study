@@ -21,10 +21,10 @@ public class IntegerNumber {
     }
 
     public static void main(String[] args) {
-        IntegerNumber inte1 = new IntegerNumber(1);
-        IntegerNumber inte2 = new IntegerNumber(2);
+        IntegerNumber num1 = new IntegerNumber(1);
+        IntegerNumber num2 = new IntegerNumber(2);
 
-        inte1.printNumber();
-        inte2.printNumber();
+        num1.printNumber();
+        num2.printNumber();
     }
 }

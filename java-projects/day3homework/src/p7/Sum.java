@@ -8,7 +8,7 @@ public class Sum {
     int a;
     int b;
 
-    public int Sum(int a, int b) {
+    public int Summation(int a, int b) {
         this.a = a;
         this.b = b;
         return  this.a + this.b;
@@ -16,6 +16,6 @@ public class Sum {
 
     public static void main(String[] args) {
         Sum add = new Sum();
-        System.out.println(add.Sum(1,2));
+        System.out.println(add.Summation(1,2));
     }
 }
