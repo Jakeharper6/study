@@ -3,6 +3,11 @@ package PizzaPracRedo;
 public class BaconPizza extends Pizza{
     private int grams;
 
+    public BaconPizza(String name, int grams) {
+        super(name, 0,0);
+        this.grams = grams;
+    }
+
     public int getGrams() {
         return grams;
     }

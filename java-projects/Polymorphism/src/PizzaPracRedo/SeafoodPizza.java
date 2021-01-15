@@ -3,6 +3,11 @@ package PizzaPracRedo;
 public class SeafoodPizza extends Pizza{
     private String ingredients;
 
+    public SeafoodPizza(String name, String ingredients) {
+        super(name, 0,0);
+        this.ingredients = ingredients;
+    }
+
     public String getIngredients() {
         return ingredients;
     }
