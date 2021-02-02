@@ -10,7 +10,11 @@
 
    **ToInt32()**和**ToDouble()**方法是 System. Convert静态类的一部分
 
-3. 用于在程序结束前 等待用户输入内容： Console**.ReadKey()**;
+3. 用于在程序结束前等待用户输入内容： Console**.ReadKey()**;
+
+4. **非整型变量赋值要加上后缀，如果不加默认为double。**例：float num = 0.1f;
+
+5. **浮点型运算会出现舍入误差，可以用decimal代替。**例：decimal num = 0.1m；
 
    
 
@@ -66,7 +70,7 @@
 
    
 
-## 6
+## 第6章
 
 1. static double Multiply (double a, double b) **=>** a * b;	表达式体方法,函数模式使用**=>**（Lambda箭头）来实现这一功能。
 
@@ -109,3 +113,9 @@
    + 3.初始化委托变量
 
      process = new ProcessDelegate( < 函数名 > );
+
+## 第7章
+
+1. 断点
+2. F5开启调试
+3. F11逐语句执行
