@@ -22,8 +22,14 @@
 
 1. bool < name >  = < ... >; 	bool -> ture/false
 
-2. WriteLine(**$**"...{name}...");      {name} -> 变量名称
+2. 格式化输出
 
+   Console.WriteLine(**$**"...{*name*}...");   {*name*} -> 变量名称  **（此方法仅限C#6 +）**
+   
+   Console.WriteLine("args1:{0} ,args2:{1}",value1,value2);
+   
+   Console.WriteLine(string.Format("args1:{0} ,args2:{1}",value1,value2));
+   
    
 
 #### 第5章
