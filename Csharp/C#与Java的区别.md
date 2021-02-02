@@ -18,7 +18,7 @@ static void Main(){}
 3．数据类型：Java跟c#基本都差不多，但是Java的String类型的首字母必须大写，而c#中可以小写也可以大写，还有布尔型，Java中是boolean，c#中是bool。
 4．变量的命名：Java中可以用$符号，而c#中不可以使用。
 5．注释：Java比c#少一种"///"的文档注释。
-6．输出：c#有三种方式输出：Cosole.WriteLine(); Cosole.WriteLine(要输出的值); Cosole.WriteLine("格式字符串"，变量列表); 前两种的用法与Java中的ystem.out.println()方法的用法相同，第三种方式是根据占位符输出的，比Java更方便了。
+6．输出：c#有三种方式输出：Console.WriteLine(); Console.WriteLine(要输出的值); Console.WriteLine("格式字符串"，变量列表); 前两种的用法与Java中的System.out.println()方法的用法相同，第三种方式是根据占位符输出的，比Java更方便了。
 7．控制流语句：c#跟Java类似,还有c#中的switch如果case后面有内容必须要有break;Java可以没有break；
 8．数组：两种语言的声明都是用new关键字的。都可以在创建数组的同时初始化如：int a[]={1,2,3,5,5};但是c#比Java多两种初始化如：int a[]=new int[3]{1,2,3}; int a[]=new int[]{1,2,3};
 9．方法中传递的参数：两种语言都使用值传递与引用传递。
