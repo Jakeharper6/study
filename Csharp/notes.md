@@ -120,8 +120,20 @@
 
      process = new ProcessDelegate( < 函数名 > );
 
-## 第7章
+## 第7章 
 
 1. 断点
 2. F5开启调试
 3. F11逐语句执行
+
+
+
+## 第9章
+
+1. 密封类（不可被继承）public **sealed** class MyClass 
+
+2. 抽象类（只能继承，可以有抽象成员）public **abstract** class MyClass
+
+3. 指定继承 public class MyClass **:** MyBase
+
+   注：如果继承了一个抽象类，就必须实现所继承的所有抽象成员（除非派生类也是抽象的）
