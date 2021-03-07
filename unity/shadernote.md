@@ -10,6 +10,136 @@
 
 
 
+### 入门知识点
+
+着色器声明（“名字”）
+Shader "ShaderDiffuseExample"
+
+**一、属性定义**（作用:外部传入参数）
+属性定义语法：PropName("DisplayName",PropType) = DefaultValue[{options}]
+Properties
+{
+
+}
+PropName:属性名，就是当前Shader的外部传入数据变量名。
+
+DisplayName：Unity材质编辑器中显示的参数名，可作为脚本传参时的Key来给属性赋值。
+
+PropType：属性的类型，UnityShader可用的类型有：
+Color：颜色，有RGBA四个量来定义。
+2D：一个二阶（2的n次幂像素）大小的贴图，这张纹理将在被采样后按照模型顶点UV进行颜色赋值。
+Rect：一个非二阶贴图。
+Cube：即为Cube map texture（立方体纹理）；立方体纹理是有6张有关系的2D贴图的组合，
+主要用做反射效果（比如天空盒和动态反射），也会被按照对应坐标采样。
+Range(min,max)：一个介于最小于最大值之间的浮点数
+Float：任意一个浮点数
+Vector：任意一个四维数
+
+DefaultValue：属性默认初始值（当然这些值也是可以在后期用代码进行再赋值）
+Color 格式为（1,1,1,1）
+Rect 2D Cube可以用默认代表tini颜色的字符串 + {}：例如"white" "black" "gray" "bump"
+Float Range 为浮点数值
+Vector 格式为（x,y,z,w）
+
+{options} ：只针对于Rect 2D Cube会有的{}，在他们初始值后面必须加上一个{}，当我们有特点选项时就写在{}里面
+选项有：ObjectLiner EyeLiner SphereMap CubeReflect CubeNormal(这些都是OpenGL中TexGen的模式)
+}
+
+**二、子着色器**（可以有多个子着色器）
+（1）shader分为四种：
+1、Fixed function shader 固定着色器
+2、Vertex shader 和 Fragment shader 定点着色器和片段着色器
+3、Surface shader 表面着色器
+4、Compute shader 这是Unity3D新增的一种。看下度娘百科对它的介绍
+（2）前三种shader不同点：
+1、Vertex shader、Fragment shader、Surface shader可以实现Fixed function shader实现不了的高级功能
+2、Vertex shader、Fragment shader、Fixed function shader 的shader主体中有pass{}；但是Serface shader
+已经把相关内容打包在了光照模型里了，不能有pass{}。
+3、Fixed function shader每句代码后面不需要加";" 另外2种shader必须要加";"
+4、它们的核心结构不同:
+Fixed function shader核心结构是 Material{} 以及 SetTexture[_MainTex]{}
+Surface shader 核心结构是
+①使用Unity自带光照模型LightModel（如Lambert），也不顶点处理，只需要一个函数surf处理即可。
+CGPROGRAM
+\#pragma surface surf Lambert
+ENDCG
+②使用自己写的光照模型LightModel，并且使用顶点处理函数vert
+CGPRORAM
+// surface 表面处理函数 光照模型 顶点处理：函数
+\#pragma surface surf lightModel vertex : vert
+//执行顺序：顶点处理函数->表面处理函数->光照模型函数->颜色值
+ENDCG
+Vertex shader 和 Fragment shader 核心结构是
+CGPROGRAM
+\#pragma vertex vert
+\#prgrma fragment frag
+\#include "Unity.cginc"
+ENDCG
+
+SubShader
+{
+
+}
+
+1、Tags修饰：硬件将通过判断定义的这些标签来决定什么时候调用该着色器。Tags其实暗示了Shader的输出
+"RenderType" = "Opaque" ：在渲染非透明物体时调用
+"RenderType" = "Transparent" ：在渲染透明物体时调用
+"IgnorProjector" = "True" : 不被Projector影响
+"ForceNoShadowCasting" = "True" : 从不产生阴影
+"Queue" = "xxx" : 指定渲染队列（渲染优先级），预定义的Queue有：
+Backgroud = 1000最早被调用的渲染(用于天空盒或者背景)
+Geometry = 2000 默认值，用来渲染非透明物体（场景中大部分都是用这个）
+AlphaTest = 2450 用来渲染经过AlphaTest的像素（单独为AlphaTest设定一个Queue是出去效率的考虑）
+Transparent = 3000 以从后往前的顺序渲染透明物体
+Overlay = 4000 用来渲染叠加效果，是渲染的最后阶段（例如渲染镜头光晕特效）
+附：除了用以上预定义的值，还可以自己定义Queue值(如 "Queue" = Transparent + 100,表示在Transparen之后100的Queue上调用)
+
+例子：Tags{"RenderType" = "opaque"}
+
+2、LOD值：它是Level of Detail的缩写，其实Unity的内建Diffuse着色器的设定值就是200。
+这个数值决定了我们能用什么样的Shader。在Unity的Quality Settings中我们可以设定允许的最大LOD，
+当设定的LOD小于SubShader所指定的LOD时，这个SubShader将不可用。
+
+Unity内建Shader定义了一组LOD的数值，我们在实现自己的Shader的时候可以将其作为参考来设定自己的LOD数值，
+这样在之后调整根据设备图形性能来调整画质时可以进行比较精确的控制。
+VertexLit及其系列 = 100
+Decal, Reflective VertexLit = 150
+Diffuse = 200
+Diffuse Detail, Reflective Bumped Unlit, Reflective Bumped VertexLit = 250
+Bumped, Specular = 300
+Bumped Specular = 400
+Parallax = 500
+Parallax Specular = 600
+
+例子：LOD 200
+
+
+3、CG程序的主体（必须被包含在CGPROGRAM ... ENDCG之间）
+
+（1）表面着色器：#pragma surface surfaceFuction lightModel[optionalparams]
+声明要写一个表面着色器，表面着色器函数名称及指定的光照模型[可附带参数]
+\#pragma 声明着色器关键字
+surface 声明着色器类型为表面着色器
+surfaceFuction 表面着色器函数名称
+lightModel 使用的光照模型
+\#pragma target 3.0 表示编译UnityShaderModel版本
+
+
+CGPROGRAM
+\#pragma surface surf Lambert
+\#pragma vertex vert
+\#pragma fragment frag
+ENDCG
+
+}
+
+**三、回滚**（在以上所有子着色器都没能执行时执行回滚）
+
+例子： FallBack "Diffuse"
+}
+
+
+
 ### 常用帮助函数、结构体和全局变量
 
 **内置包含文件**
@@ -30,7 +160,7 @@
 
 　　Unity5.2引入了许多新的重要的包含文件，如UnityStandardBRDF.cginc等。*这些文件用于实现基于物理的渲染*
 
-**知识点2：UnityShader中常用的结构体****
+**知识点2：UnityShader中常用的结构体**
 
 　　　　名称 　　　　　　　　 描述 　　　　　　　　　　　　　包含的变量
 　　appdata_base 　　　　用于顶点着色器输入 　　　　 顶点位置、顶点法线、第一组纹理坐标
@@ -175,12 +305,12 @@ shader内置数学函数：
   acos(x): arc cosine,返回弧度 [0, PI]; 
   atan(y, x): arc tangent, 返回弧度 [-PI, PI]; 
   atan(y/x): arc tangent, 返回弧度 [-PI/2, PI/2]; 
- 
+
   pow(x, y): x的y次方； 
   exp(x): 指数, log(x)： 
   exp2(x): 2的x次方， log2(x): 
   sqrt(x): x的根号； inversesqrt(x): x根号的倒数 
- 
+
   abs(x): 绝对值 
   sign(x): 符号, 1, 0 或 -1 
 
@@ -262,12 +392,11 @@ SubShader
 这些标签和Pass中设置的标签是不一样的。而对于状态设置来说，其使用的语法是相同。不过在SubShader进行的设置
 将会用于所用的Pass。
 
-
 **二【渲染状态】**
 　　ShaderLab提供了一系列渲染状态的设定，这些指令可以设置显卡的各种状态，例如是否开启混合/深度测试等。
 状态名称 　　    设置指令 　　　　　　　　　　 　　　　　　　　　　 　　　　 解释
-Cull 　　　　Cull Back|Front|Off 　　　　 　　　　　　　　　　　　　　　　设置剔除模式，剔除背面|正面|关闭剔除  默认CullBack
-ZTest 　　　ZTest Less Greater|LEqual|GEqual|Equal|NotEqual|Always 　　 设置深度时使用的函数　　　　　　　　默认ZTest LEqual 小于或等于目标深度才能被渲染
+Cull 　　　　Cull Back|Front|Off 　　　　 　　　　　　　　　　　　　设置剔除模式，剔除背面|正面|关闭剔除       默认CullBack
+ZTest 　　　ZTest Less Greater|LEqual|GEqual|Equal|NotEqual|Always 　　 设置深度时使用的函数　　　　　　　　默认ZTest 																																								LEqual 小于或等于目标深度才能被渲染
 ZWrite 　　  ZWrite On|Off 　　　　　　　　　　　　　　　　　　　　　　　开启和关闭深度写入　　　　　　　　  默认ZWrite On
 Blend 　　　Blend SrcFactor DstFactor 　　　　　　　　　　　　　　　　　 开启并设置混合模式　　    　　　　　　　
 
@@ -283,8 +412,8 @@ SubShader标签类型：注意这些标签只能在SubShader中声明，不能�
 　　标签类型 　　　　　　　　　　　　　　　　 说明 　　　　　　　　 　　　　　　　　 列　　　　子
 Queue 　　　　　　　　     控制渲染顺序，指定该物体属于哪一个渲染队列 　　　　 Tags{"Queue" = "Transparent"}
 RenderType 　　　　　　    对着色器分类。例如：这是一个不透明着色器 　　　　　 Tags{"RenderType" = "Opaque"}
-DisableBatching 　　　　    一些SubShader在使用Unity批处理时会出现问题。
-　　　　　　　　　　　　    可以用该标签直接表明是否使用批处理 　　　　　　　　 Tags{"DisableBatching" = "True"}
+DisableBatching 　　　　    一些SubShader在使用Unity批处理时会出现问题。			Tags{"DisableBatching" = "True"}
+　　　　　　　　　　　　    可以用该标签直接表明是否使用批处理 　　　　　　　　 
 ForecNoShadowCasting 　　  控制该SubShader的物体是否会投射阴影 　　　　　　   Tags{"ForceNoShadowCasting" = "True"}
 IgnoreProjector 　　　　　　 设置该SubShader的物体是否受Projector影响　　　　　  Tags{"IgnoreProjector" = "True"}
 　　　　　　　　　　　　　　True常用与半透明物体。
@@ -315,6 +444,8 @@ LightModel　　　　 定义该Pass在渲染管线中的角色 　　　　 Tag
 RequireOption 　　 用于指定满足某些条件是才渲染该　　　　Pass Tags{"RequireOption" = "SoftVegetation"}
 
 ColorMask　       可以让我们制定渲染结果的输出通道，而不是通常情况下的RGBA这4个通道全部写入。可选参数是 RGBA 的任意组合以及 0， 这将意味着不会写入到任何通道。
+
+
 
 
 
