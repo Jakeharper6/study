@@ -50,7 +50,7 @@ Vector 格式为（x,y,z,w）
 1、Fixed function shader 固定着色器
 2、Vertex shader 和 Fragment shader 定点着色器和片段着色器
 3、Surface shader 表面着色器
-4、Compute shader 这是Unity3D新增的一种。看下度娘百科对它的介绍
+4、Compute shader 这是Unity3D新增的一种。
 （2）前三种shader不同点：
 1、Vertex shader、Fragment shader、Surface shader可以实现Fixed function shader实现不了的高级功能
 2、Vertex shader、Fragment shader、Fixed function shader 的shader主体中有pass{}；但是Serface shader
