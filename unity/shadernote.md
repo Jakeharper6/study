@@ -16,7 +16,7 @@
 Shader "ShaderDiffuseExample"
 
 **一、属性定义**（作用:外部传入参数）
-属性定义语法：PropName("DisplayName",PropType) = DefaultValue[{options}]
+属性定义语法：`PropName("DisplayName",PropType) = DefaultValue[{options}]`
 Properties
 {
 
@@ -36,10 +36,10 @@ Float：任意一个浮点数
 Vector：任意一个四维数
 
 DefaultValue：属性默认初始值（当然这些值也是可以在后期用代码进行再赋值）
-Color 格式为（1,1,1,1）
+Color 格式为`（1,1,1,1）`
 Rect 2D Cube可以用默认代表tini颜色的字符串 + {}：例如"white" "black" "gray" "bump"
 Float Range 为浮点数值
-Vector 格式为（x,y,z,w）
+Vector 格式为`（x,y,z,w）`
 
 {options} ：只针对于Rect 2D Cube会有的{}，在他们初始值后面必须加上一个{}，当我们有特点选项时就写在{}里面
 选项有：ObjectLiner EyeLiner SphereMap CubeReflect CubeNormal(这些都是OpenGL中TexGen的模式)
@@ -57,29 +57,47 @@ Vector 格式为（x,y,z,w）
 已经把相关内容打包在了光照模型里了，不能有pass{}。
 3、Fixed function shader每句代码后面不需要加";" 另外2种shader必须要加";"
 4、它们的核心结构不同:
-Fixed function shader核心结构是 Material{} 以及 SetTexture[_MainTex]{}
-Surface shader 核心结构是
+**Fixed function shader**核心结构是 `Material{}` 以及 `SetTexture[_MainTex]{}`
+
+
+
+**Surface shader** 核心结构是
 ①使用Unity自带光照模型LightModel（如Lambert），也不顶点处理，只需要一个函数surf处理即可。
+
+```
 CGPROGRAM
-\#pragma surface surf Lambert
+#pragma surface surf Lambert
 ENDCG
+```
+
 ②使用自己写的光照模型LightModel，并且使用顶点处理函数vert
+
+```
 CGPRORAM
 // surface 表面处理函数 光照模型 顶点处理：函数
-\#pragma surface surf lightModel vertex : vert
+#pragma surface surf lightModel vertex : vert
 //执行顺序：顶点处理函数->表面处理函数->光照模型函数->颜色值
 ENDCG
-Vertex shader 和 Fragment shader 核心结构是
-CGPROGRAM
-\#pragma vertex vert
-\#prgrma fragment frag
-\#include "Unity.cginc"
-ENDCG
+```
 
+
+
+**Vertex shader** 和 **Fragment shader** 核心结构是
+
+```
 SubShader
 {
-
+	Tags {"" = ""}
+	
+	Pass{
+		CGPROGRAM
+		#pragma vertex vert
+		#prgrma fragment frag
+		#include "Unity.cginc"
+		ENDCG
+	}
 }
+```
 
 1、Tags修饰：硬件将通过判断定义的这些标签来决定什么时候调用该着色器。Tags其实暗示了Shader的输出
 "RenderType" = "Opaque" ：在渲染非透明物体时调用

@@ -1,3 +1,5 @@
+# Unlit Shader 无光照着色器编写思路
+
 ```
 Shader "Unlit/Tutorial_Shader"{
     ...
@@ -268,3 +270,154 @@ Shader "Unlit/Tutorial_Shader"{
 ```
 
 这里大致的骨架已经出来了
+
+
+
+```
+v2f vertexFunction(a2v v){
+    v2f o;
+    o.position = UnityObjectToClipPos(v.vertex);
+    return o;
+}
+```
+
+接着要做的是获取顶点的正确位置，使用Unity中提供的UnityObjectToClipPos()函数（这个函数的作用是将世界空间的模型坐标转换到裁剪空间，函数内部封装了实现顶点坐标变换的具体细节，如矩阵变换等等）。这个函数将在局部空间中表示的顶点，变换到渲染相机的裁剪空间。注意是通过设置o.position的位置来传递转换的点。
+
+
+
+```
+fixed4 fragmentFunction(v2f i) : SV_TARGET{
+    return fixed4(0, 1, 0, 1);
+}
+```
+
+接下来，给片元函数一个输出。
+
+想要编辑shader使得其能返回一个想要的颜色，需要回到开始的自定义属性。
+
+
+
+```
+Properties{
+    //_name ("display name", type) = default value
+    _Color("Totally Rad Color", Color) = (1, 1, 1, 1)
+}
+```
+
+在这里定义了一个颜色供使用，将其称之为_Color并且它将显示为 “Totally Rad Color”
+
+
+
+```
+//结构体
+
+float4 _Color;	//从CG中获取属性
+	
+//函数方法
+```
+
+在我们使用这个color之前，我们需要把它传递到CG代码中
+
+
+
+```
+fixed4 fragmentFunction(v2f i):SV_TARGET{
+    return _Color;
+}   
+```
+
+现在，可以在片元函数中使用_Color值了
+
+
+
+```
+Shader "Unlit/TutorialShader"
+{
+    Properties{
+        _Color("Totally Rad Color", Color) = (1, 1, 1, 1)
+    }
+
+    SubShader{
+        Pass{
+
+            CGPROGRAM
+
+            #pragma vertex vertexfunction
+            #pragma fragment fragmentfunction
+            #include "UnityCG.cginc"
+
+            struct a2v{
+                float4 vertex : POSITION;
+                float2 uv : TEXCOORD0;
+            };
+
+            struct v2f{
+                float4 position : SV_POSITION;
+                float2 uv : TEXCOORD0;
+            };
+
+            //从CG中获取属性
+	        float4 _Color;
+
+            v2f vertexfunction(a2v v){
+                v2f o;
+                o.position = UnityObjectToClipPos(v.vertex);
+                return o;
+            }
+
+            fixed4 fragmentfunction(v2f i): SV_TARGET{
+                return _Color;
+            }
+
+            ENDCG
+        }
+    }
+}
+```
+
+当前只显示颜色的着色器完整代码
+
+
+
+```
+Properties{
+    _Color("_Color",Color)=(1,1,1,1)
+    _MainTexture("Main Texture",2D)="white"{}
+}
+```
+
+现在添加一张标准的纹理贴图，这里需要添加一个新的属性给我们的纹理
+
+
+
+```
+float4 _Color;
+sampler2D _MainTexture;
+```
+
+注意它的类型是2D，默认给它一张白色的纹理，此时同样还需要获取这个属性在CG片段中使用它
+
+
+
+```
+v2f vertexFunction(a2v v){
+    v2f o;
+    o.position=UnityObjectToClipPos(v.vertex);
+    o.uv=v.uv;
+    return o;
+}
+```
+
+然后，需要从模型传递UV纹理坐标到片元函数，可以通过返回顶点函数并将其传递v2f中
+
+
+
+```
+fixed4 fragmentFunction(v2f i):SV_TARGET{
+    return tex2D(_MainTexture,i.uv);
+}
+```
+
+为了能在片元函数中使用纹理的颜色，我们需要对纹理进行采样
+
+CG中已经有一个tex2D()函数做了一切
