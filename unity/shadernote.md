@@ -64,7 +64,7 @@ Vector 格式为`（x,y,z,w）`
 **Surface shader** 核心结构是
 ①使用Unity自带光照模型LightModel（如Lambert），也不顶点处理，只需要一个函数surf处理即可。
 
-```
+```glsl
 CGPROGRAM
 #pragma surface surf Lambert
 ENDCG
@@ -72,7 +72,7 @@ ENDCG
 
 ②使用自己写的光照模型LightModel，并且使用顶点处理函数vert
 
-```
+```glsl
 CGPRORAM
 // surface 表面处理函数 光照模型 顶点处理：函数
 #pragma surface surf lightModel vertex : vert
@@ -84,7 +84,7 @@ ENDCG
 
 **Vertex shader** 和 **Fragment shader** 核心结构是
 
-```
+```glsl
 SubShader
 {
 	Tags {"" = ""}

@@ -69,36 +69,38 @@ Shader "Unlit/DefaultUnlitShader"
 
 注一：着色器可以被若干的标签（tags）所修饰，而硬件将通过判定这些标签来决定什么时候调用该着色器。
 
-     Tags { "RenderType"="Opaque" } 告诉了系统应该在渲染非透明物体时调用我们,Unity定义了一些列这样的渲染过程，
-    
-     与RenderType是Opaque相对应的显而易见的是"RenderType" = "Transparent"，表示渲染含有透明效果的物体时调用。
-     在这里Tags其实暗示了你的Shader输出的是什么，如果输出中都是非透明物体，那写在Opaque里；
-    
-     如果想渲染透明或者半透明的像素，那应该写在Transparent中。
-     另外比较有用的标签还有"IgnoreProjector"="True"（不被Projectors影响），
-    
-     "ForceNoShadowCasting"="True"（从不产生阴影）以及"Queue"="xxx"（指定渲染顺序队列）。
-     这里想要着重说一下的是Queue这个标签，如果你使用Unity做过一些透明和不透明物体的混合的话，
-    
-     很可能已经遇到过不透明物体无法呈现在透明物体之后的情况。
-     这种情况很可能是由于Shader的渲染顺序不正确导致的。
-    
-     Queue指定了物体的渲染顺序，预定义的Queue有：
-     Background - 最早被调用的渲染，用来渲染天空盒或者背景
-    
-     Geometry - 这是默认值，用来渲染非透明物体（普通情况下，场景中的绝大多数物体应该是非透明的）
-    
-     AlphaTest - 用来渲染经过Alpha Test的像素，单独为AlphaTest设定一个Queue是出于对效率的考虑
-     Transparent - 以从后往前的顺序渲染透明物体
-    
-     Overlay - 用来渲染叠加的效果，是渲染的最后阶段（比如镜头光晕等特效）
-     这些预定义的值本质上是一组定义整数，Background = 1000， Geometry = 2000, AlphaTest = 2450， Transparent = 3000，
-    
-     最后Overlay = 4000。
-    
-     在我们实际设置Queue值时，不仅能使用上面的几个预定义值，我们也可以指定自己的Queue值，写成类似这样："Queue"="Transparent+100"，
-    
-     表示一个在Transparent之后100的Queue上进行调用。通过调整Queue值，我们可以确保某些物体一定在另一些物体之前或者之后渲染，这个技巧有时候很有用处
+```glsl
+ Tags { "RenderType"="Opaque" } 告诉了系统应该在渲染非透明物体时调用我们,Unity定义了一些列这样的渲染过程，
+
+ 与RenderType是Opaque相对应的显而易见的是"RenderType" = "Transparent"，表示渲染含有透明效果的物体时调用。
+ 在这里Tags其实暗示了你的Shader输出的是什么，如果输出中都是非透明物体，那写在Opaque里；
+
+ 如果想渲染透明或者半透明的像素，那应该写在Transparent中。
+ 另外比较有用的标签还有"IgnoreProjector"="True"（不被Projectors影响），
+
+ "ForceNoShadowCasting"="True"（从不产生阴影）以及"Queue"="xxx"（指定渲染顺序队列）。
+ 这里想要着重说一下的是Queue这个标签，如果你使用Unity做过一些透明和不透明物体的混合的话，
+
+ 很可能已经遇到过不透明物体无法呈现在透明物体之后的情况。
+ 这种情况很可能是由于Shader的渲染顺序不正确导致的。
+
+ Queue指定了物体的渲染顺序，预定义的Queue有：
+ Background - 最早被调用的渲染，用来渲染天空盒或者背景
+
+ Geometry - 这是默认值，用来渲染非透明物体（普通情况下，场景中的绝大多数物体应该是非透明的）
+
+ AlphaTest - 用来渲染经过Alpha Test的像素，单独为AlphaTest设定一个Queue是出于对效率的考虑
+ Transparent - 以从后往前的顺序渲染透明物体
+
+ Overlay - 用来渲染叠加的效果，是渲染的最后阶段（比如镜头光晕等特效）
+ 这些预定义的值本质上是一组定义整数，Background = 1000， Geometry = 2000, AlphaTest = 2450， Transparent = 3000，
+
+ 最后Overlay = 4000。
+
+ 在我们实际设置Queue值时，不仅能使用上面的几个预定义值，我们也可以指定自己的Queue值，写成类似这样："Queue"="Transparent+100"，
+
+ 表示一个在Transparent之后100的Queue上进行调用。通过调整Queue值，我们可以确保某些物体一定在另一些物体之前或者之后渲染，这个技巧有时候很有用处
+```
 
 
 注二：shaderLOD， 在Unity的Quality Settings中我们可以设定允许的最大LOD，当设定的LOD小于SubShader所指定的LOD时，这个			SubShader将不可用,（diffuse的LOD为200）这样在之后调整根据设备图形性能来调整画质时可以进行比较精确的控制
@@ -115,11 +117,13 @@ Shader "Unlit/DefaultUnlitShader"
 
 ​			这句是等价的，都是坐标变换到最终的二维窗口
 
-     	TRANSFORM_TEX宏的定义为 
-    
-     	#define TRANSFORM_TEX(tex,name) (tex.xy *name##_ST.xy + name##_ST.zw) 根据uv坐标来计算真正的纹理上对应的位置，		在选择纹理的
-    
-     	inspector界面可以设置四个值，Tiling对应xy，Offset对应zw
+```glsl
+ 	TRANSFORM_TEX宏的定义为 
+
+ 	#define TRANSFORM_TEX(tex,name) (tex.xy *name##_ST.xy + name##_ST.zw) 根据uv坐标来计算真正的纹理上对应的位置，		在选择纹理的
+
+ 	inspector界面可以设置四个值，Tiling对应xy，Offset对应zw
+```
 注七：UNITY_TRANSFER_FOG宏，在UnityCG.cginc的第945行起
      	#if (SHADER_TARGET < 30) || defined(SHADER_API_MOBILE)
        	 // mobile or SM2.0: calculate fog factor per-vertex

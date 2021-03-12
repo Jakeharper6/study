@@ -1,6 +1,6 @@
 # Unlit Shader 无光照着色器编写思路
 
-```
+```glsl
 Shader "Unlit/Tutorial_Shader"{
     ...
 }
@@ -10,7 +10,7 @@ Shader "Unlit/Tutorial_Shader"{
 
 
 
-```
+```glsl
 Shader "Unlit/Tutorial_Shader"{
     Properties{
         ...
@@ -22,7 +22,7 @@ Shader "Unlit/Tutorial_Shader"{
 
 
 
-```
+```glsl
 Shader "Unlit/Tutorial_Shader"{
     Properties{
         ...
@@ -41,7 +41,7 @@ Shader "Unlit/Tutorial_Shader"{
 
 
 
-```
+```glsl
 Shader "Unlit/Tutorial_Shader"{
     Properties{
         ...
@@ -58,7 +58,7 @@ Shader "Unlit/Tutorial_Shader"{
 
 
 
-```
+```glsl
 Shader "Unlit/Tutorial_Shader"{
     Properties{
         
@@ -79,7 +79,7 @@ Shader "Unlit/Tutorial_Shader"{
 
 
 
-```
+```glsl
 CGPROGRAM
     #pragma vertex vertexFunction
     #pragma fragment fragmentFunction
@@ -90,7 +90,7 @@ ENDCG
 
 
 
-```
+```glsl
 CGPROGRAM 
     #pragma vertex vertexFunction
     #pragma fragment fragmentFunction
@@ -109,7 +109,7 @@ ENDCG
 
 
 
-```
+```glsl
 CGPROGRAM
     #pragma vertex vertexFunction
     #pragma fragment fragmentFunction
@@ -143,7 +143,7 @@ ENDCG
 
 `[type] [name] :[semantic]`
 
-```
+```glsl
 struct a2v{
 	flot4 vertex:POSITION;
 };
@@ -153,7 +153,7 @@ struct a2v{
 
 
 
-```
+```glsl
 struct a2v{
     float4 vertex:POSITION;
     float2 uv:TEXCOORD0;  //texture coordinate
@@ -164,7 +164,7 @@ struct a2v{
 
 
 
-```
+```glsl
 CGPROGRAM
     #pragma vertex vertexFunction
     #pragma fragment fragmentFunction
@@ -197,7 +197,7 @@ ENDCG
 
 
 
-```
+```glsl
 struct v2f{
     float4 position:SV_POSITION;
     float2 uv:TEXCOORD0;
@@ -210,7 +210,7 @@ SV代表“system value”，在v2f结构中表示最终渲染的顶点的位置
 
 
 
-```
+```glsl
 fixed4 fragmentFunction(v2f i){
     
 }
@@ -225,7 +225,7 @@ fixed4:fixed类型的四维向量 (x,y,z,w)或(r,g,b,a)，精度不高，但用�
 
 
 
-```
+```glsl
 fixed4 fragmentFunction(v2f i):SV_TARGET{
     
 }
@@ -235,7 +235,7 @@ fixed4 fragmentFunction(v2f i):SV_TARGET{
 
 
 
-```
+```glsl
 Shader "Unlit/Tutorial_Shader"{
     Properties{
         
@@ -273,7 +273,7 @@ Shader "Unlit/Tutorial_Shader"{
 
 
 
-```
+```glsl
 v2f vertexFunction(a2v v){
     v2f o;
     o.position = UnityObjectToClipPos(v.vertex);
@@ -285,7 +285,7 @@ v2f vertexFunction(a2v v){
 
 
 
-```
+```glsl
 fixed4 fragmentFunction(v2f i) : SV_TARGET{
     return fixed4(0, 1, 0, 1);
 }
@@ -297,7 +297,7 @@ fixed4 fragmentFunction(v2f i) : SV_TARGET{
 
 
 
-```
+```glsl
 Properties{
     //_name ("display name", type) = default value
     _Color("Totally Rad Color", Color) = (1, 1, 1, 1)
@@ -308,7 +308,7 @@ Properties{
 
 
 
-```
+```glsl
 //结构体
 
 float4 _Color;	//从CG中获取属性
@@ -320,7 +320,7 @@ float4 _Color;	//从CG中获取属性
 
 
 
-```
+```glsl
 fixed4 fragmentFunction(v2f i):SV_TARGET{
     return _Color;
 }   
@@ -330,7 +330,7 @@ fixed4 fragmentFunction(v2f i):SV_TARGET{
 
 
 
-```
+```glsl
 Shader "Unlit/TutorialShader"
 {
     Properties{
@@ -379,7 +379,7 @@ Shader "Unlit/TutorialShader"
 
 
 
-```
+```glsl
 Properties{
     _Color("_Color",Color)=(1,1,1,1)
     _MainTexture("Main Texture",2D)="white"{}
@@ -390,7 +390,7 @@ Properties{
 
 
 
-```
+```glsl
 float4 _Color;
 sampler2D _MainTexture;
 ```
@@ -399,7 +399,7 @@ sampler2D _MainTexture;
 
 
 
-```
+```glsl
 v2f vertexFunction(a2v v){
     v2f o;
     o.position=UnityObjectToClipPos(v.vertex);
@@ -412,7 +412,7 @@ v2f vertexFunction(a2v v){
 
 
 
-```
+```glsl
 fixed4 fragmentFunction(v2f i):SV_TARGET{
     return tex2D(_MainTexture,i.uv);
 }
