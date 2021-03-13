@@ -14,6 +14,37 @@ v2f vertexFunction(a2v v){
 
 
 
+#### UnityObjectToWorldDir()函数和UnityObjectToWorldNormal()函数
+
+**UnityObjectToWorldDir**用于把模型空间下的矢量转换到世界空间
+
+**UnityObjectToWorldNormal**用于把模型空间下的法线向量转换到世界空间。因为必须保证法线垂直于模型的表面，所以缩放的时候与普通矢量不一样。例：
+
+```glsl
+v2f vert (appdata v){
+    v2f o;
+    o.pos = UnityObjectToClipPos(v.vertex);
+    o.worldNormal = UnityObjectToWorldNormal(v.normal);		
+    o.viewDir = WorldSpaceViewDir(v.vertex);
+    o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+    TRANSFER_SHADOW(o)
+    return o;
+}
+```
+
+
+
+#### normalize()函数
+
+使该向量进行标准化，其的长度为1.0，但方向保持不变。
+
+注：此函数将该更改向量，如果要保持当前向量不变，应使用normalized。
+
+单位矢量
+在很多情况下，我们只关心矢量的方向而不是模。此时我们就需要计算单位矢量（unit vector）。
+单位矢量指的是那些模为1的矢量。单位矢量也被称为被归一化的矢量（normalized vector）。对任何给定的非零矢量，把它转换成单位矢量的过程就被称为归一化（normalization）。
+为了对矢量进行归一化，我们可以用矢量的模除以该矢量来得到。
+
 #### abs()函数
 
 取绝对值
