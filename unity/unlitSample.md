@@ -1,7 +1,4 @@
-
-
 ```c#
-
 //定义shader的找寻路径
 Shader "Unlit/DefaultUnlitShader"        
 {    
