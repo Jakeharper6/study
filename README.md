@@ -1,3 +1,3 @@
 # study
 
-### program study in semicircle
+### program study
