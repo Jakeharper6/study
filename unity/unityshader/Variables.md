@@ -1,3 +1,23 @@
+#### struct v2f中的float4 pos
+
+```glsl
+struct a2v
+{
+    float4 vertex : POSITION;
+}
+
+struct v2f
+{
+    float4 pos : SV_POSITION;
+
+    ...
+};
+```
+
+其中，结构体v2f中顶点坐标变量名必须为pos，因为光影宏：TRANSFER_VERTEX_TO_FRAGMENT中有些嵌套宏有固化这个变量名称来处理。
+
+
+
 #### _WorldSpaceLightPos0
 
 表示：世界坐标中光源的位置或方向向量。
