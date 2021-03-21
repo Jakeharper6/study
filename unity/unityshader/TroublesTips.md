@@ -97,3 +97,5 @@ Shader "Example/ShadowShader"
 ## 困难
 
 1.个人shader设计的出发点是依据光源方向和效果的3-4层可变色带，投影落在物体自身上的颜色调节是难点，尝试与_DarkLight同色。
+
+2.个人shader中点积方法中采用_WorldSpaceLightPos0即该光源为平行光，所以使用此shader的物体必须在平行光源即Directional。
