@@ -1,3 +1,9 @@
+## Rigidbody
+
+Is Kinematic 表示是否可以运动。设置静态刚体、例如地面就是静态刚体。
+
+
+
 ## InstantOC Occlusio Culling（即时遮挡剔除）
 
 - 目的：用于优化，把摄像机视锥以内看不见的东西剔除掉，从而减少draw call。
