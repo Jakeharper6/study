@@ -1,5 +1,4 @@
-﻿//牢记unityshader基础结构
-Shader "Unlit/ReviewShader"
+﻿Shader "Unlit/ReviewShader"
 {
    Properties
    {
